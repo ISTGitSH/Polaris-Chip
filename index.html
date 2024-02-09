@@ -16,7 +16,14 @@
       font-family: sans-serif;
       background-color: #ededed;
     }
-    polaris-chip {
+
+    my-card {
+      margin: 16px;
+    }
+
+
+
+    my-card {
       margin: 16px;
     }
   </style>
@@ -26,12 +33,38 @@
 <body>
   <h1>polaris-chip</h1>
   <!-- this is going to do whatever the tag's defaults are -->
-  <polaris-chip></polaris-chip>
+  <polaris-chip title="New of Record" link="https://psu.edu"></polaris-chip>
+  <polaris-chip title="Faculty and Staff"></polaris-chip>
+  <polaris-chip title=""></polaris-chip>
+  <polaris-chip title=""></polaris-chip>
   <!-- this is going to take the tag and change the title -->
   <polaris-chip title="Cool stuff"></polaris-chip>
 
   <h1>my-card</h1>
-  <my-card></my-card>
+  <my-card 
+  title="Happy Birthday" 
+  image="https://i.etsystatic.com/16587028/r/il/0fa489/3294159062/il_1080xN.3294159062_3dyv.jpg" 
+  message="Enjoy your 50th, Dad!"></my-card>
+
+  <my-card 
+  title="Happy 50th" 
+  image="https://media.istockphoto.com/id/471165684/vector/word-cloud-happy-birthday-celebration-50.jpg?s=612x612&w=0&k=20&c=rKPuzYspyhNLJnit5FXmCHe6009x52uxPSNSx2-jj18=" 
+  message="I hope you have the best birthday."></my-card>
+
+  <my-card 
+  title="You're Getting Old" 
+  image="https://i.pinimg.com/originals/20/bd/15/20bd15bd45cc9757b3ad3fdbae61687a.jpg" 
+  message="Happy Birthday! Make it one to remember."></my-card>
+
+  <my-card 
+  title="Still Got It" 
+  image="https://i.etsystatic.com/23216012/r/il/566096/2598747685/il_570xN.2598747685_5lk9.jpg" 
+  message="I can't beleive you can still dunk!"></my-card>
+
+  <my-card 
+  title="Happiest of Birthdays" 
+  image="https://img.freepik.com/premium-vector/happy-birthday-vertical-card-with-golden-balloons-confetti_87850-297.jpg" 
+  message="So where are we gonna go out to eat?"></my-card>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
