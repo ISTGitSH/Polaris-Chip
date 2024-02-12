@@ -21,8 +21,6 @@
       margin: 16px;
     }
 
-
-
     my-card {
       margin: 16px;
     }
@@ -35,8 +33,8 @@
   <!-- this is going to do whatever the tag's defaults are -->
   <polaris-chip title="New of Record" link="https://psu.edu"></polaris-chip>
   <polaris-chip title="Faculty and Staff"></polaris-chip>
-  <polaris-chip title=""></polaris-chip>
-  <polaris-chip title=""></polaris-chip>
+  <polaris-chip title="Button A"></polaris-chip>
+  <polaris-chip title="Button B"></polaris-chip>
   <!-- this is going to take the tag and change the title -->
   <polaris-chip title="Cool stuff"></polaris-chip>
 
@@ -44,31 +42,84 @@
   <my-card 
   title="Happy Birthday" 
   image="https://i.etsystatic.com/16587028/r/il/0fa489/3294159062/il_1080xN.3294159062_3dyv.jpg" 
-  message="Enjoy your 50th, Dad!"></my-card>
+  fancy message="Enjoy your 50th Dad!"></my-card>
+    <p>Enjoy your 50th, <strong>Dad!</strong></p>
+</my-card>
 
   <my-card 
   title="Happy 50th" 
   image="https://media.istockphoto.com/id/471165684/vector/word-cloud-happy-birthday-celebration-50.jpg?s=612x612&w=0&k=20&c=rKPuzYspyhNLJnit5FXmCHe6009x52uxPSNSx2-jj18=" 
-  message="I hope you have the best birthday."></my-card>
+  message="I hope you have the best birthday."
+  fancy></my-card>
 
   <my-card 
   title="You're Getting Old" 
   image="https://i.pinimg.com/originals/20/bd/15/20bd15bd45cc9757b3ad3fdbae61687a.jpg" 
-  message="Happy Birthday! Make it one to remember."></my-card>
+  message="Happy Birthday! Make it one to remember."
+  fancy></my-card>
 
   <my-card 
   title="Still Got It" 
   image="https://i.etsystatic.com/23216012/r/il/566096/2598747685/il_570xN.2598747685_5lk9.jpg" 
-  message="I can't beleive you can still dunk!"></my-card>
+  message="I can't beleive you can still dunk!"
+  fancy></my-card>
 
   <my-card 
   title="Happiest of Birthdays" 
   image="https://img.freepik.com/premium-vector/happy-birthday-vertical-card-with-golden-balloons-confetti_87850-297.jpg" 
-  message="So where are we gonna go out to eat?"></my-card>
+  message="So where are we gonna go out to eat?"
+  fancy></my-card>
+
+
+  <button id = "duplicate">Duplicate Card</button>
+  <button id = "changetitle">Change Title</button>
+  <button id = "changeimage">Change Image</button>
+  <button id = "changebg">Change Background</button>
+  <button id = "delete">Delete Last Card</button>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+
+  <script>
+    document.querySelector('#duplicate').addEventListener('click', function (event) {
+      const cards = document.querySelectorAll('my-card');
+      if (document.querySelectorAll('.card').length < 10) {
+        const newCard = cards[0].cloneNode(true);
+        document.body.insertBefore(newCard, document.querySelector('#duplicate'));
+  }
+});
+
+    document.querySelector('#changetitle').addEventListener('click', function (e) {
+      const cardTitle = document.querySelector('my-card').shadowRoot.querySelector('.card-header h1');
+      if (cardTitle) {
+        cardTitle.innerHTML = "Congratulations!";
+  }
+});
+
+    document.querySelector('#changeimage').addEventListener('click', function (e) {
+      const image = document.querySelector('my-card').shadowRoot.querySelector('.balloon-img');
+    if (image) {
+      image.setAttribute('src', "https://img.freepik.com/free-vector/celebratory-balloons-isolated-background_1284-52282.jpg?size=338&ext=jpg&ga=GA1.1.1448711260.1706486400&semt=sph");
+    }
+});
+
+    document.querySelector('#changebg').addEventListener('click', function (e) {
+      const card = document.querySelector('my-card').shadowRoot.querySelector('.card');
+    if (card) {
+      card.classList.toggle('change-color');
+  }
+});
+
+    document.querySelector('#delete').addEventListener('click', function (e) {
+      const cards = document.querySelectorAll('my-card');
+      if (cards.length > 1) {
+        cards[cards.length - 1].remove();
+  }
+});
+
+  </script>
+
 </body>
 
 </html>
