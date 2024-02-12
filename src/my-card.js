@@ -69,6 +69,25 @@ export class MyCard extends LitElement {
   margin: 16px;
 }
 
+details summary {
+  text-align: left;
+  font-size: 20px;
+  padding: 8px 0;
+}
+
+details[open] summary {
+  font-weight: bold;
+}
+  
+details div {
+  border: 2px solid black;
+  text-align: left;
+  padding: 8px;
+  height: 70px;
+  overflow: auto;
+  color: white;
+}
+
 .card-footer {
   padding: 25px;
   text-align: right;
@@ -116,15 +135,31 @@ export class MyCard extends LitElement {
   `;
 }
 
+openChanged(e) {
+  console.log(e);
+  if (e.target.getAttribute('open') !== null) {
+    this.fancy = true;
+  }
+  else {
+    this.fancy = false;
+  }
+}
+
   render() {
     return html`
       <section class="card">
         <div class="card-header">
           <h1>${this.title}</h1>
         </div>
+        <details ?open="${this.fancy}" @toggle="${this.openChanged}">          
+          <summary>Description</summary>
+          <div>
+            <slot name="description">${this.message}</slot>
+          </div>
+        </details>
         <div class="card-content">
           <img src="${this.image}" alt="Balloon Image" class="balloon-img">
-          <p>${this.message}</p>
+          <slot name="message"></slot>
     </div>
     <div class="card-footer">
       <a href="https://hax.psu.edu" class="details-btn">Details</a>
