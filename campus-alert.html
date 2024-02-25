@@ -1,0 +1,123 @@
+<template id="campus-alert-template">
+  <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: var(--alert-background, white);
+      color: var(--alert-text-color, black);
+      padding: 16px;
+      border-bottom: 2px solid white;
+    }
+
+    .alert {
+      font-weight: bold;
+    }
+
+    .date {
+      font-size: 0.8em;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .blue {
+      background-color: blue;
+      color: white;
+    }
+
+    .warning {
+      background-color: orange;
+      color: white;
+    }
+
+    .alert {
+      background-color: red;
+      color: white;
+    }
+  </style>
+  <div class="alert" role="alert">
+    <slot></slot>
+    <div class="date">Date: <slot name="date"></slot></div>
+  </div>
+</template>
+
+<script>
+  class CampusAlert extends HTMLElement {
+    constructor() {
+      super();
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.appendChild(document.getElementById('campus-alert-template').content.cloneNode(true));
+      this.isOpen = true;
+      this.sticky = this.hasAttribute('sticky');
+      this.status = this.getAttribute('status') || 'notice';
+      this.date = this.getAttribute('date') || '';
+      this.toggleButton = null;
+    }
+
+    connectedCallback() {
+      this.render();
+      this.toggleButton = this.shadowRoot.querySelector('.alert');
+      this.toggleButton.addEventListener('click', () => this.toggle());
+      this.toggleButton.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          this.toggle();
+          const oppositeButton = this.shadowRoot.querySelector('.alert[aria-expanded="' + !this.isOpen + '"]');
+          if (oppositeButton) {
+            oppositeButton.focus();
+          }
+        }
+      });
+      if (this.sticky) {
+        window.addEventListener('scroll', () => {
+          this.handleSticky();
+        });
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.sticky) {
+        window.removeEventListener('scroll', () => {
+          this.handleSticky();
+        });
+      }
+    }
+
+    toggle() {
+      this.isOpen = !this.isOpen;
+      this.render();
+      if (!this.isOpen) {
+        localStorage.setItem('alertClosed', 'true');
+      } else {
+        localStorage.removeItem('alertClosed');
+      }
+    }
+
+    handleSticky() {
+      if (window.pageYOffset > this.toggleButton.offsetTop) {
+        this.toggleButton.classList.add('sticky');
+      } else {
+        this.toggleButton.classList.remove('sticky');
+      }
+    }
+
+    render() {
+      this.toggleButton.setAttribute('aria-expanded', this.isOpen);
+      if (!this.isOpen) {
+        this.toggleButton.setAttribute('tabindex', '0');
+      } else {
+        this.toggleButton.removeAttribute('tabindex');
+      }
+      this.toggleButton.classList.remove('blue', 'warning', 'alert');
+      this.toggleButton.classList.add(this.status);
+      const dateSlot = this.shadowRoot.querySelector('slot[name="date"]');
+      if (dateSlot) {
+        dateSlot.innerHTML = this.date;
+      }
+    }
+  }
+
+  customElements.define('campus-alert', CampusAlert);
+</script>
