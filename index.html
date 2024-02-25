@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Counter App Demo</title>
+  <script type="module" src="./counter-app.js"></script>
   <meta name="Description" content="Boilerplate for polaris chip">
   <base href="/">
 
@@ -29,6 +31,7 @@
 </head>
 
 <body>
+  <counter-app></counter-app>
   <h1>polaris-chip</h1>
   <!-- this is going to do whatever the tag's defaults are -->
   <polaris-chip title="New of Record" link="https://psu.edu"></polaris-chip>
@@ -41,7 +44,7 @@
   <h1>my-card</h1>
   <my-card 
   title="Happy Birthday" 
-  image="https://i.etsystatic.com/16587028/r/il/0fa489/3294159062/il_1080xN.3294159062_3dyv.jpg" 
+  image="https://media.istockphoto.com/id/471165684/vector/word-cloud-happy-birthday-celebration-50.jpg?s=612x612&w=0&k=20&c=rKPuzYspyhNLJnit5FXmCHe6009x52uxPSNSx2-jj18=" 
   fancy message="Enjoy your 50th Dad!"></my-card>
     <p>Enjoy your 50th, <strong>Dad!</strong></p>
 </my-card>
@@ -71,6 +74,12 @@
   fancy></my-card>
 
 
+  <campus-alert status="notice" date="2024-02-25">SOMETHING IS GOING ON. READ THIS FIRST WHILE YOU ARE HERE</campus-alert>
+  <campus-alert status="warning" date="2024-02-25">WARNING: There may be disruptions today.</campus-alert>
+  <campus-alert status="alert" date="2024-02-25">ALERT: Emergency situation. Please take action.</campus-alert>
+  <campus-alert status="notice" date="2024-02-25" sticky>SOMETHING IS GOING ON. STICKY VERSION</campus-alert>
+
+
   <button id = "duplicate">Duplicate Card</button>
   <button id = "changetitle">Change Title</button>
   <button id = "changeimage">Change Image</button>
@@ -80,6 +89,8 @@
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+
+  <script type="module" src="./campus-alert.js"></script>
 
   <script>
     document.querySelector('#duplicate').addEventListener('click', function (event) {
