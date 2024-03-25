@@ -30,10 +30,19 @@
   <title>polaris-chip / my-card</title>
 </head>
 
+<!-- HAX Party UI -->
+
+<h1>HAX Party UI</h1>>
+
+<script type="module" src="./haxcms-party-ui.js"></script>
+
+<haxcms-party-ui></haxcms-party-ui>
+
+<!-- Campus Alert -->
 
 <h1>Campus-Alert</h1>>
 
-<campus-alert status="notice" date="2024-02-24" sticky>
+<campus-alert status="notice" date="2024-02-24" >
   <h3 slot="title"></h3>
   <p>NOTICE: Something is going on. Read first while you are here.</p>
 </campus-alert>
@@ -48,7 +57,7 @@
   <p>ALERT: Emergency situation. Please take action.</p>
 </campus-alert>
 
-<campus-alert id="sticky-alert" status="notice" date="2024-05-24" sticky>
+<campus-alert id="sticky-alert"status="notice" date="2024-05-24" sticky>
   <h3 slot="title"></h3>
   <p>CAUTION: Watch out! STICKY VERSION</p>
 </campus-alert>
@@ -63,7 +72,7 @@
 
 
 
-
+<!-- Counter App -->
 
 <body>
   <counter-app></counter-app>
@@ -75,6 +84,9 @@
   <polaris-chip title="Button B"></polaris-chip>
   <!-- this is going to take the tag and change the title -->
   <polaris-chip title="Cool stuff"></polaris-chip>
+
+
+<!-- My Card -->
 
   <h1>my-card</h1>
   <my-card 
@@ -109,14 +121,13 @@
   fancy></my-card>
 
  
-
   <button id = "duplicate">Duplicate Card</button>
   <button id = "changetitle">Change Title</button>
   <button id = "changeimage">Change Image</button>
   <button id = "changebg">Change Background</button>
   <button id = "delete">Delete Last Card</button>
 
-  <!-- this is what is bringing in the definition for this tag -->
+
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
 
