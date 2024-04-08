@@ -1,6 +1,7 @@
 import { html, css } from "lit";
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 import "@lrnwebcomponents/rpg-character/rpg-character.js";
+import "@lrnwebcomponents/multiple-choice/lib/confetti-container.js";
 
 export class HaxcmsPartyUI extends DDD {
   static get tag() {
@@ -12,6 +13,7 @@ export class HaxcmsPartyUI extends DDD {
       this.users = [];
       this.printUsers = [];
       this.userName = null;
+      this.confettiPopped = false;
   }
 
   static get styles() {
@@ -91,7 +93,16 @@ export class HaxcmsPartyUI extends DDD {
             background-color: var(--ddd-theme-default-limestoneLight);
             color: var(--ddd-theme-default-skyBlue);
         }
-    `
+        
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+        }
+        `
         ];
     }
 
@@ -101,12 +112,12 @@ export class HaxcmsPartyUI extends DDD {
             e.target.select();
         }
         const inputVal = e.target.value;
-        const scrubVal = inputVal.replace(/[^a-z0-9]+$/g, "");
+        const scrubVal =inputVal.replace(/[^a-z0-9]/g, '');
         e.target.value = scrubVal.slice(0, 10);
     }
 
     updateName(event) {
-        this.userName = event.target.value;
+        this.userName = event.target.value.toLowerCase();
     }
 
     addUser(e) {
@@ -132,10 +143,23 @@ export class HaxcmsPartyUI extends DDD {
 
     displayUsers(e) {
         this.printUsers = JSON.stringify(this.users);
+        this.makeItRain();
+
+    }
+
+    makeItRain() {
+        import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+          (module) => {
+            setTimeout(() => {
+              this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+            }, 0);
+          }
+        );
     }
 
     render() {
         return html`
+            <confetti-container id="confetti">
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
                     <input type="text" class="username-add" onfocus="this.value=''" @keypress="${this.inputScrub}" @input="${this.updateName}" />
@@ -157,6 +181,7 @@ export class HaxcmsPartyUI extends DDD {
                     ${this.printUsers}
                 </p>
             </div>
+            </confetti-container>
         `;
     }
 
@@ -165,7 +190,8 @@ export class HaxcmsPartyUI extends DDD {
             ...super.properties,
             users: { type: Array },
             userName: { type: String, attribute: "user-name", reflect: true },
-            printUsers: { type: Array, attribute: "print-users", reflect: true }
+            printUsers: { type: Array, attribute: "print-users", reflect: true },
+            confettiPopped: { type: Boolean }
         }
     }
 }
